@@ -37,36 +37,7 @@ Gyroscopes drift over time due to a slowly-varying bias on each axis. Without co
 
 ## System Architecture
 
-```
-┌─────────────────────────────────────────────────────────┐
-│                     Sensor Stream                       │
-│   IMU (gyro ωx,ωy,ωz)      RGB-D Depth Camera          │
-└────────────┬──────────────────────┬────────────────────┘
-             │ every sample         │ per frame
-             ▼                      ▼
-     ┌───────────────┐    ┌──────────────────────┐
-     │  EKF Predict  │    │  Plane Fitting (ROI)  │
-     │  (Euler       │    │  ApproxPlaneFromPoints│
-     │   kinematics) │    │  → normal vector vn   │
-     └───────┬───────┘    └──────────┬───────────┘
-             │                       │
-             │            ┌──────────▼───────────┐
-             │            │  Plane Classification │
-             │            │  floor / wall / skip  │
-             │            └──────────┬───────────┘
-             │                       │
-             └───────────┬───────────┘
-                         ▼
-               ┌──────────────────┐
-               │   EKF Update     │
-               │  (floor or wall  │
-               │   measurement    │
-               │   model)         │
-               └────────┬─────────┘
-                        ▼
-            [φ, θ, ψ, bx, by, bz]
-        roll  pitch  yaw  gyro biases
-```
+![System Architecture](./EKFarch.png)
 
 ***
 
