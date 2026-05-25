@@ -33,6 +33,8 @@ Gyroscopes drift over time due to a slowly-varying bias on each axis. Without co
 - Yaw-observable updates via wall normals; roll/pitch updates via floor normals
 - Real-time operation validated against a reference API implementation
 
+![Output MATLAB](./output.JPG)
+
 ***
 
 ## System Architecture
